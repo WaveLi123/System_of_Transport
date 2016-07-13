@@ -1,0 +1,94 @@
+package frame_2;
+
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import listener_2.HandRoomDialogListener;
+
+public class HandRoomDialog extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5897276432192793728L;
+	private static HandRoomDialog handRoomDialog ;
+	private JLabel bg ;
+	private  JTextField jtfRoomID;
+	private JComboBox jcbYear;
+	private JComboBox jcbMonth;
+	private JComboBox jcbDay;
+	private JCheckBox jchBisAdvance;
+	public HandRoomDialog (){
+		bg=new JLabel(new ImageIcon(this.getClass().getResource("/image/handRoomDialog_bg.png")));
+		ImageButton ensure = new ImageButton("ok");
+		ImageButton cancel = new ImageButton("cancel");
+		
+		jtfRoomID=new JTextField();
+		jcbYear=new JComboBox();
+		jcbMonth=new JComboBox();
+		jcbDay=new JComboBox();
+		jchBisAdvance =new JCheckBox("提前还车");
+		jchBisAdvance.setFont(new Font("微软雅黑",Font.PLAIN,20));
+		jchBisAdvance.setForeground(Color.white);
+		
+		
+		jcbYear.setOpaque(false);
+		jcbMonth.setOpaque(false);
+		jcbDay.setOpaque(false);
+		jchBisAdvance.setOpaque(false);
+		
+		jcbYear.setEnabled(false);
+		jcbMonth.setEnabled(false);
+		jcbDay.setEnabled(false);
+		
+		this.setVisible(false);
+		this.setSize(479, 275);
+		this.setOpaque(false);
+		setLayout(null);
+		
+		jchBisAdvance.setBounds(240, 108, 200, 30);
+		jtfRoomID.setBounds(130, 113, 80, 25);
+		jcbYear.setBounds(130,162,70,25);
+		jcbMonth.setBounds(240,162,70,25);
+		jcbDay.setBounds(350,162,70,25);
+		ensure.setBounds(350, 200, 48, 48);
+		cancel.setBounds(410, 200, 48, 48);
+		bg.setBounds(0, 0, 479, 275);
+		
+		add(jchBisAdvance);
+		add(jtfRoomID);
+		add(jcbYear);
+		add(jcbMonth);
+		add(jcbDay);
+		add(ensure);
+		add(cancel);
+		add(bg);
+		
+		HandRoomDialogListener	handRoomDialogListener=new HandRoomDialogListener(jtfRoomID,jcbYear,jcbMonth,jcbDay,
+				jchBisAdvance,ensure,cancel );
+		
+		jtfRoomID.addActionListener(handRoomDialogListener);
+		jcbYear.addActionListener(handRoomDialogListener);
+		jcbMonth.addActionListener(handRoomDialogListener);
+		jcbDay.addActionListener(handRoomDialogListener);
+		jchBisAdvance.addActionListener(handRoomDialogListener);
+		ensure.addActionListener(handRoomDialogListener);
+		cancel.addActionListener(handRoomDialogListener);
+	}
+	
+	public static HandRoomDialog instance(){
+		if(handRoomDialog==null){
+			handRoomDialog=new HandRoomDialog();
+		}
+		return handRoomDialog;
+	}
+	
+
+}
